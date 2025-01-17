@@ -1,36 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Meals</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        .overall-total {
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>User Meals</h1>
+{% extends 'food/base.html' %}
+{% block content %}
+    <h1>User Meals {{ request.user }}</h1>
     {% for username, meals in daily_macronutrients.items %}
-        <h2>Username: {{ username }}</h2>
 
         {% for meal_type, details in meals.items %}
             {% if meal_type != "Overall Total" %}
@@ -70,7 +41,7 @@
                 </table>
             {% else %}
                 <div class="overall-total">
-                    <h3>Overall Total:</h3>
+                    <h3>Total:</h3>
                     <table>
                         <thead>
                             <tr>
@@ -93,5 +64,5 @@
             {% endif %}
         {% endfor %}
     {% endfor %}
-</body>
-</html>
+
+{% endblock %}

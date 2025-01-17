@@ -2,6 +2,10 @@ from django.shortcuts import render
 from fitnessApp.users.models import UserProfile
 
 
+def home(request):
+    return render(request, 'food/home.html')
+
+
 def user_meals_view(request, username):
     user = UserProfile.objects.get(user__username=username)
     daily_macronutrients = {username: {}}
