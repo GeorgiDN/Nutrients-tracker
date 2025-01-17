@@ -1,9 +1,11 @@
-{% extends "home/base.html" %}
+{% extends 'home/base.html' %}
 {% block content %}
+    <h1>My foods</h1>
+
     <table>
         <thead>
         <tr>
-            <th>Food Name></th>
+            <th>Food Name</th>
             <th>Quantity (g)</th>
             <th>Calories</th>
             <th>Carbs</th>
@@ -12,6 +14,8 @@
         </tr>
         </thead>
         <tbody>
+        {% for food in foods %}
+
             <tr>
                 <td><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
                 <td>100 gr.</td>
@@ -20,7 +24,9 @@
                 <td>{{ food.protein }}</td>
                 <td>{{ food.fats }}</td>
             </tr>
-        
+
+        {% endfor %}
         </tbody>
     </table>
-{% endblock content %}
+
+{% endblock %}

@@ -6,4 +6,5 @@ urlpatterns = [
     path('meals/<str:username>/', views.user_meals_view, name='user_meals'),
     path('food/new/', views.FoodCreateView.as_view(), name='food-create'),
     path('food/<int:pk>/', views.FoodDetailView.as_view(), name='food-detail'),
+    path('user/<str:username>/', views.FoodListView.as_view(), name='food-list'),
 ]

@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, ListView
 
 from fitnessApp.food.models import Food
 from fitnessApp.users.models import UserProfile
@@ -83,3 +84,17 @@ class FoodDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         user_profile = UserProfile.objects.get(user=self.request.user)
         return Food.objects.filter(user=user_profile)
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        if obj.user != user_profile:
+            raise PermissionDenied("You do not have permission to view this food.")
+        return obj
+
+
+class FoodListView(LoginRequiredMixin, ListView):
+    model = Food
+    template_name = 'food/food_list.html'
+    context_object_name = 'foods'
+
