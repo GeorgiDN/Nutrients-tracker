@@ -1,4 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views.generic import CreateView, DetailView
+
+from fitnessApp.food.models import Food
 from fitnessApp.users.models import UserProfile
 
 
@@ -59,3 +63,23 @@ def user_meals_view(request, username):
     }
 
     return render(request, 'food/user_meals.html', context)
+
+
+class FoodCreateView(LoginRequiredMixin, CreateView):
+    model = Food
+    fields = ['name', 'calories', 'carbs', 'protein', 'fats']
+
+    def form_valid(self, form):
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        form.instance.user = user_profile
+        response = super().form_valid(form)
+
+        return response
+
+
+class FoodDetailView(LoginRequiredMixin, DetailView):
+    model = Food
+
+    def get_queryset(self):
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        return Food.objects.filter(user=user_profile)

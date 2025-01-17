@@ -1,5 +1,6 @@
 from django.db import models
 from fitnessApp.users.models import UserProfile
+from django.urls.base import reverse
 
 
 class Food(models.Model):
@@ -36,6 +37,9 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('food-detail', kwargs={'pk': self.pk})
 
 
 class Meal(models.Model):

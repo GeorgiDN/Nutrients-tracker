@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import user_meals_view, home
+from fitnessApp.food import views
 
 urlpatterns = [
-    path('', home, name='home'),
-    path('meals/<str:username>/', user_meals_view, name='user_meals'),
+    path('', views.home, name='home'),
+    path('meals/<str:username>/', views.user_meals_view, name='user_meals'),
+    path('food/new/', views.FoodCreateView.as_view(), name='food-create'),
+    path('food/<int:pk>/', views.FoodDetailView.as_view(), name='food-detail'),
 ]
