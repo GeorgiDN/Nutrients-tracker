@@ -8,35 +8,35 @@
                 <h3>{{ meal_type }}</h3>
                 <table>
                     <thead>
-                        <tr>
-                            <th>Food Name</th>
-                            <th>Quantity (g)</th>
-                            <th>Calories</th>
-                            <th>Carbs</th>
-                            <th>Protein</th>
-                            <th>Fats</th>
-                        </tr>
+                    <tr>
+                        <th>Food Name</th>
+                        <th>Quantity (g)</th>
+                        <th>Calories</th>
+                        <th>Carbs</th>
+                        <th>Protein</th>
+                        <th>Fats</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {% for food_name, quantities in details.Foods.items %}
-                            {% for quantity, nutrients in quantities.items %}
-                                <tr>
-                                    <td>{{ food_name }}</td>
-                                    <td>{{ quantity }}</td>
-                                    <td>{{ nutrients.Calories|floatformat:2 }}</td>
-                                    <td>{{ nutrients.Carbs|floatformat:2 }}</td>
-                                    <td>{{ nutrients.Protein|floatformat:2 }}</td>
-                                    <td>{{ nutrients.Fats|floatformat:2 }}</td>
-                                </tr>
-                            {% endfor %}
+                    {% for food, quantities in details.Foods.items %}
+                        {% for quantity, nutrients in quantities.items %}
+                            <tr>
+                                <td><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
+                                <td>{{ quantity }}</td>
+                                <td>{{ nutrients.Calories|floatformat:2 }}</td>
+                                <td>{{ nutrients.Carbs|floatformat:2 }}</td>
+                                <td>{{ nutrients.Protein|floatformat:2 }}</td>
+                                <td>{{ nutrients.Fats|floatformat:2 }}</td>
+                            </tr>
                         {% endfor %}
-                        <tr style="font-weight: bold;">
-                            <td colspan="2">Total for {{ meal_type }}</td>
-                            <td>{{ details.Totals.Calories|floatformat:2 }}</td>
-                            <td>{{ details.Totals.Carbs|floatformat:2 }}</td>
-                            <td>{{ details.Totals.Protein|floatformat:2 }}</td>
-                            <td>{{ details.Totals.Fats|floatformat:2 }}</td>
-                        </tr>
+                    {% endfor %}
+                    <tr style="font-weight: bold;">
+                        <td colspan="2">Total for {{ meal_type }}</td>
+                        <td>{{ details.Totals.Calories|floatformat:2 }}</td>
+                        <td>{{ details.Totals.Carbs|floatformat:2 }}</td>
+                        <td>{{ details.Totals.Protein|floatformat:2 }}</td>
+                        <td>{{ details.Totals.Fats|floatformat:2 }}</td>
+                    </tr>
                     </tbody>
                 </table>
             {% else %}
@@ -44,20 +44,20 @@
                     <h3>Total:</h3>
                     <table>
                         <thead>
-                            <tr>
-                                <th>Calories</th>
-                                <th>Carbs</th>
-                                <th>Protein</th>
-                                <th>Fats</th>
-                            </tr>
+                        <tr>
+                            <th>Calories</th>
+                            <th>Carbs</th>
+                            <th>Protein</th>
+                            <th>Fats</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{{ details.Calories|floatformat:2 }}</td>
-                                <td>{{ details.Carbs|floatformat:2 }}</td>
-                                <td>{{ details.Protein|floatformat:2 }}</td>
-                                <td>{{ details.Fats|floatformat:2 }}</td>
-                            </tr>
+                        <tr>
+                            <td>{{ details.Calories|floatformat:2 }}</td>
+                            <td>{{ details.Carbs|floatformat:2 }}</td>
+                            <td>{{ details.Protein|floatformat:2 }}</td>
+                            <td>{{ details.Fats|floatformat:2 }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

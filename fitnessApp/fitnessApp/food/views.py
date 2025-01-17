@@ -44,13 +44,10 @@ def user_meals_view(request, username):
             food = meal_food.food
             grams_quantity = meal_food.grams_quantity
 
-            food_key = f'{food.name}'
-            quantity_key = f'{grams_quantity}'
+            if food not in daily_macronutrients[username][meal.meal_type]["Foods"]:
+                daily_macronutrients[username][meal.meal_type]["Foods"][food] = {}
 
-            if food_key not in daily_macronutrients[username][meal.meal_type]["Foods"]:
-                daily_macronutrients[username][meal.meal_type]["Foods"][food_key] = {}
-
-            daily_macronutrients[username][meal.meal_type]["Foods"][food_key][quantity_key] = {
+            daily_macronutrients[username][meal.meal_type]["Foods"][food][grams_quantity] = {
                 'Calories': float((food.calories * grams_quantity) / 100),
                 'Carbs': float((food.carbs * grams_quantity) / 100),
                 'Protein': float((food.protein * grams_quantity) / 100),
