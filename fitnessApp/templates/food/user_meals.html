@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Meals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .overall-total {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Meals</h1>
+    {% for username, meals in daily_macronutrients.items %}
+        <h2>Username: {{ username }}</h2>
+
+        {% for meal_type, details in meals.items %}
+            {% if meal_type != "Overall Total" %}
+                <h3>{{ meal_type }}</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Food Name</th>
+                            <th>Quantity (g)</th>
+                            <th>Calories</th>
+                            <th>Carbs</th>
+                            <th>Protein</th>
+                            <th>Fats</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for food_name, quantities in details.Foods.items %}
+                            {% for quantity, nutrients in quantities.items %}
+                                <tr>
+                                    <td>{{ food_name }}</td>
+                                    <td>{{ quantity }}</td>
+                                    <td>{{ nutrients.Calories|floatformat:2 }}</td>
+                                    <td>{{ nutrients.Carbs|floatformat:2 }}</td>
+                                    <td>{{ nutrients.Protein|floatformat:2 }}</td>
+                                    <td>{{ nutrients.Fats|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        <tr style="font-weight: bold;">
+                            <td colspan="2">Total for {{ meal_type }}</td>
+                            <td>{{ details.Totals.Calories|floatformat:2 }}</td>
+                            <td>{{ details.Totals.Carbs|floatformat:2 }}</td>
+                            <td>{{ details.Totals.Protein|floatformat:2 }}</td>
+                            <td>{{ details.Totals.Fats|floatformat:2 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="overall-total">
+                    <h3>Overall Total:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Calories</th>
+                                <th>Carbs</th>
+                                <th>Protein</th>
+                                <th>Fats</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ details.Calories|floatformat:2 }}</td>
+                                <td>{{ details.Carbs|floatformat:2 }}</td>
+                                <td>{{ details.Protein|floatformat:2 }}</td>
+                                <td>{{ details.Fats|floatformat:2 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>
