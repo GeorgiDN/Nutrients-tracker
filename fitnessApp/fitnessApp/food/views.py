@@ -3,7 +3,7 @@ from fitnessApp.users.models import UserProfile
 
 
 def home(request):
-    return render(request, 'food/home.html')
+    return render(request, 'home/home.html')
 
 
 def user_meals_view(request, username):

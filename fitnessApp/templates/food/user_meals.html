@@ -1,6 +1,6 @@
-{% extends 'food/base.html' %}
+{% extends 'home/base.html' %}
 {% block content %}
-    <h1>User Meals {{ request.user }}</h1>
+    <h1>User Meals: {{ request.user }}</h1>
     {% for username, meals in daily_macronutrients.items %}
 
         {% for meal_type, details in meals.items %}
