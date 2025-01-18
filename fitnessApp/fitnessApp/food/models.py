@@ -38,6 +38,10 @@ class Food(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+        unique_together = ('name', 'user')
+
     def get_absolute_url(self):
         return reverse('food-detail', kwargs={'pk': self.pk})
 

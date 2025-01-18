@@ -1,5 +1,6 @@
+from django.db import IntegrityError
 from django.urls.base import reverse
-
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
@@ -72,9 +73,11 @@ class FoodCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         user_profile = UserProfile.objects.get(user=self.request.user)
         form.instance.user = user_profile
-        response = super().form_valid(form)
-
-        return response
+        try:
+            return super().form_valid(form)
+        except IntegrityError:
+            messages.error(self.request, f"You already have a food '{form.instance.name}' added to food list.")
+            return redirect('food-create')
 
 
 class FoodDetailView(LoginRequiredMixin, DetailView):
