@@ -106,9 +106,10 @@ class FoodListView(LoginRequiredMixin, ListView):
         return Food.objects.filter(user=self.request.user.user_profile)
 
 
-class FoodUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class FoodUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = Food
     fields = ['name', 'calories', 'carbs', 'protein', 'fats']
+    success_message = "Food was updated!"
 
     def form_valid(self, form):
         form.instance.user = self.request.user.user_profile
