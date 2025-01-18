@@ -1,7 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls.base import reverse
+
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
-from django.views.generic import CreateView, DetailView, ListView
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from fitnessApp.food.models import Food
 from fitnessApp.users.models import UserProfile
@@ -95,3 +97,25 @@ class FoodListView(LoginRequiredMixin, ListView):
     template_name = 'food/food_list.html'
     context_object_name = 'foods'
 
+    def get_queryset(self):
+        return Food.objects.filter(user=self.request.user.user_profile)
+
+
+class FoodUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Food
+    fields = ['name', 'calories', 'carbs', 'protein', 'fats']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user.user_profile
+        return super().form_valid(form)
+
+    def test_func(self):
+        food = self.get_object()
+        return self.request.user == food.user.user
+
+    def get_success_url(self):
+        food_pk = self.object.pk
+        return f"/food/food-list/#food-{food_pk}"
+
+
+# url_ = reverse('food-list', args=[food_pk]) + f"#food-{food_pk}"

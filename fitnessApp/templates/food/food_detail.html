@@ -9,6 +9,7 @@
             <th>Carbs</th>
             <th>Protein</th>
             <th>Fats</th>
+            <th class="bg-info">Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -19,6 +20,9 @@
                 <td>{{ food.carbs }}</td>
                 <td>{{ food.protein }}</td>
                 <td>{{ food.fats }}</td>
+                <td>
+                    <a class="btn btn-secondary btn-sm" href="{% url 'food-update' object.pk %}">Edit</a>
+                </td>
             </tr>
         
         </tbody>

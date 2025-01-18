@@ -1,32 +1,38 @@
 {% extends 'home/base.html' %}
 {% block content %}
     <h1>My foods</h1>
-
-    <table>
-        <thead>
-        <tr>
-            <th>Food Name</th>
-            <th>Quantity (g)</th>
-            <th>Calories</th>
-            <th>Carbs</th>
-            <th>Protein</th>
-            <th>Fats</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for food in foods %}
-
+    <h4>Nutrients for 100 grams</h4>
+    {% if foods %}
+        <table class="food-table">
+            <thead>
             <tr>
-                <td><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
-                <td>100 gr.</td>
-                <td>{{ food.calories }}</td>
-                <td>{{ food.carbs }}</td>
-                <td>{{ food.protein }}</td>
-                <td>{{ food.fats }}</td>
+                <th>Food Name</th>
+                <th>Calories</th>
+                <th>Carbs</th>
+                <th>Protein</th>
+                <th>Fats</th>
+                <th class="bg-info">Edit</th>
             </tr>
+            </thead>
+            <tbody>
+            {% for food in foods %}
 
-        {% endfor %}
-        </tbody>
-    </table>
+                <tr id="food-{{ food.pk }}">
+                    <td><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
+                    <td>{{ food.calories }}</td>
+                    <td>{{ food.carbs }}</td>
+                    <td>{{ food.protein }}</td>
+                    <td>{{ food.fats }}</td>
+                    <td>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'food-update' food.pk %}">Edit</a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No foods have been added yet. <a href="{% url 'food-create' %}">Add a new food</a>.</p>
+    {% endif %}
 
 {% endblock %}

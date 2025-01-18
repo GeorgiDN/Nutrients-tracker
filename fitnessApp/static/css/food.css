@@ -4,9 +4,13 @@ table {
     margin-bottom: 20px;
 }
 
+.food-table {
+    margin-top: 20px;
+}
+
 th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 3px;
     text-align: center;
 }
 
@@ -17,4 +21,15 @@ th {
 
 .overall-total {
     margin-top: 20px;
+}
+
+
+@media (max-width: 450px) {
+    th, td {
+        font-size: 14px;
+    }
+
+    .btn-sm {
+        padding: 4px;
+    }
 }
