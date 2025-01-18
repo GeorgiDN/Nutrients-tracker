@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from fitnessApp.food.models import Food
+from fitnessApp.food.models import Food, Meal
 from fitnessApp.users.models import UserProfile
 
 
@@ -132,3 +132,32 @@ class FoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     def test_func(self):
         food = self.get_object()
         return self.request.user == food.user.user
+
+
+class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Meal
+    fields = ['meal_type']
+    success_message = "Meal was created!"
+
+    def form_valid(self, form):
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        form.instance.user = user_profile
+        try:
+            meal = form.save()
+            return redirect('meal-detail', pk=meal.pk)
+        except IntegrityError:
+            messages.error(self.request, f"You already have a meal with name '{form.instance.meal_type}'")
+            return redirect('meal-create')
+
+
+class MealDetailView(LoginRequiredMixin, DetailView):
+    model = Meal
+
+    def get_object(self, queryset=None):
+        meal = super().get_object(queryset)
+        user_profile = UserProfile.objects.get(user=self.request.user)
+
+        if meal.user != user_profile:
+            raise PermissionDenied("You do not have permission to view this meal.")
+
+        return meal

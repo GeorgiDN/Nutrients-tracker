@@ -9,4 +9,6 @@ urlpatterns = [
     path('food-list/', views.FoodListView.as_view(), name='food-list'),
     path('food/<int:pk>/update/', views.FoodUpdateView.as_view(), name='food-update'),
     path('food/<int:pk>/delete/', views.FoodDeleteView.as_view(), name='food-delete'),
+    path('meal/new/', views.MealCreateView.as_view(), name='meal-create'),
+    path('meal/<int:pk>/', views.MealDetailView.as_view(), name='meal-detail'),
 ]
