@@ -1,10 +1,10 @@
 {% extends "home/base.html" %}
 {% block content %}
-    <table>
+    <h2>{{ food.name }} 100 grams</h2>
+    <table class="food-table">
         <thead>
         <tr>
-            <th>Food Name></th>
-            <th>Quantity (g)</th>
+            <th>Food Name</th>
             <th>Calories</th>
             <th>Carbs</th>
             <th>Protein</th>
@@ -15,7 +15,6 @@
         <tbody>
             <tr>
                 <td><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
-                <td>100 gr.</td>
                 <td>{{ food.calories }}</td>
                 <td>{{ food.carbs }}</td>
                 <td>{{ food.protein }}</td>

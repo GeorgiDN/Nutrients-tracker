@@ -1,10 +1,11 @@
 from django.db import IntegrityError
-from django.urls.base import reverse
+from django.urls.base import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
 
 from fitnessApp.food.models import Food
 from fitnessApp.users.models import UserProfile
@@ -66,9 +67,10 @@ def user_meals_view(request, username):
     return render(request, 'food/user_meals.html', context)
 
 
-class FoodCreateView(LoginRequiredMixin, CreateView):
+class FoodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Food
     fields = ['name', 'calories', 'carbs', 'protein', 'fats']
+    success_message = "Food was created!"
 
     def form_valid(self, form):
         user_profile = UserProfile.objects.get(user=self.request.user)
@@ -121,4 +123,11 @@ class FoodUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return f"/food/food-list/#food-{food_pk}"
 
 
-# url_ = reverse('food-list', args=[food_pk]) + f"#food-{food_pk}"
+class FoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = Food
+    success_url = reverse_lazy('food-list')
+    success_message = "Food was successfully deleted."
+
+    def test_func(self):
+        food = self.get_object()
+        return self.request.user == food.user.user
