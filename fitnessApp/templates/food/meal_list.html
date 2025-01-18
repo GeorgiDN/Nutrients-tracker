@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <h1>My Meals</h1>
+    {% if meals %}
+        <ul>
+            {% for meal in meals %}
+                <li class="list-group-item">{{ meal.meal_type }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

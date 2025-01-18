@@ -161,3 +161,12 @@ class MealDetailView(LoginRequiredMixin, DetailView):
             raise PermissionDenied("You do not have permission to view this meal.")
 
         return meal
+
+
+class MealListView(LoginRequiredMixin, ListView):
+    model = Food
+    template_name = 'food/meal_list.html'
+    context_object_name = 'meals'
+
+    def get_queryset(self):
+        return Meal.objects.filter(user=self.request.user.user_profile)
