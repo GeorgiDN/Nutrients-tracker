@@ -30,13 +30,15 @@ def user_meals_view(request, username):
 
     for meal in all_meals_to_user:
         if meal.meal_type not in daily_macronutrients[username]:
-            daily_macronutrients[username][meal.meal_type] = {}
-            daily_macronutrients[username][meal.meal_type]["Foods"] = {}
-            daily_macronutrients[username][meal.meal_type]["Totals"] = {
-                "Calories": float(meal.total_calories()),
-                "Carbs": float(meal.total_carbs()),
-                "Protein": float(meal.total_protein()),
-                "Fats": float(meal.total_fats()),
+            daily_macronutrients[username][meal.meal_type] = {
+                "Meal": meal,
+                "Foods": {},
+                "Totals": {
+                    "Calories": float(meal.total_calories()),
+                    "Carbs": float(meal.total_carbs()),
+                    "Protein": float(meal.total_protein()),
+                    "Fats": float(meal.total_fats()),
+                }
             }
 
             overall_totals["Calories"] += float(meal.total_calories())
@@ -170,3 +172,21 @@ class MealListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Meal.objects.filter(user=self.request.user.user_profile)
+
+
+class MealUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+    model = Meal
+    fields = ['meal_type']
+    success_message = "Meal was updated!"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user.user_profile
+        return super().form_valid(form)
+
+    def test_func(self):
+        meal = self.get_object()
+        return self.request.user == meal.user.user
+
+    def get_success_url(self):
+        meal_pk = self.object.pk
+        return f"/food/meal-list/#meal-{meal_pk}"

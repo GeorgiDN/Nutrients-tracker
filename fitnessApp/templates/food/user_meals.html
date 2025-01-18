@@ -2,15 +2,19 @@
 {% block content %}
     <h1>User Meals: {{ request.user }}</h1>
     {% for username, meals in daily_macronutrients.items %}
-
+        
         {% for meal_type, details in meals.items %}
             {% if meal_type != "Overall Total" %}
-                <h3>{{ meal_type }}</h3>
+                <h3>
+                    <a href="{% url 'meal-detail' details.Meal.pk %}">
+                        {{ meal_type }}
+                    </a>
+                </h3>
                 <table>
                     <thead>
                     <tr>
                         <th>Food Name</th>
-                        <th>Quantity (g)</th>
+                        <th>Grams</th>
                         <th>Calories</th>
                         <th>Carbs</th>
                         <th>Protein</th>

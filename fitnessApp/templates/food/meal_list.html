@@ -2,11 +2,27 @@
 {% block content %}
     <h1>My Meals</h1>
     {% if meals %}
-        <ul>
+        <table>
+            <thead>
+            <tr>
+                <th>Meal Name</th>
+                <th>-</th>
+                <th>-</th>
+            </tr>
+            </thead>
+            <tbody>
             {% for meal in meals %}
-                <li class="list-group-item">{{ meal.meal_type }}</li>
+                <tr>
+                    <td id="meal-{{ meal.pk }}" class="list-group-item">
+                        <a href="{% url 'meal-detail' meal.pk %}">{{ meal.meal_type }}</a>
+                    </td>
+                    <td><a class="btn btn-secondary btn-sm" href="{% url 'meal-update' meal.pk %}">Edit</a></td>
+                    <td>-</td>
+                </tr>
             {% endfor %}
-        </ul>
+            </tbody>
+
+        </table>
     {% endif %}
 
 {% endblock %}
