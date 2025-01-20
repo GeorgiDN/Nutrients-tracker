@@ -203,10 +203,11 @@ class MealDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
         return self.request.user == meal.user.user
 
 
-class MealFoodCreateView(LoginRequiredMixin, CreateView):
+class MealFoodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = MealFood
     form_class = MealFoodForm
     template_name = 'food/mealfood_form.html'
+    success_message = "MealFood was created!"
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -214,7 +215,7 @@ class MealFoodCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('mealfood-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('mealfood-list')
 
 
 class MealFoodDetailView(LoginRequiredMixin, DetailView):
