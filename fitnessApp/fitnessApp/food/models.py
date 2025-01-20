@@ -65,7 +65,8 @@ class Meal(models.Model):
         unique_together = ('meal_type', 'user')
 
     def __str__(self):
-        return f'{self.user.user.username} - {self.meal_type}'
+        # return f'{self.user.user.username} - {self.meal_type}'
+        return f'{self.meal_type}'
 
     def total_calories(self):
         total = sum((item.food.calories * item.grams_quantity) / 100 for item in self.meal_foods.all())
@@ -105,3 +106,4 @@ class MealFood(models.Model):
 
     class Meta:
         unique_together = ('meal', 'food')
+        ordering = ('meal', 'food')

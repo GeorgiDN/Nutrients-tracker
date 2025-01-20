@@ -229,3 +229,11 @@ class MealFoodDetailView(LoginRequiredMixin, DetailView):
 
         return meal_food
 
+
+class MealFoodListView(LoginRequiredMixin, ListView):
+    model = MealFood
+    template_name = 'food/mealfood_list.html'
+    context_object_name = 'meal_foods'
+
+    def get_queryset(self):
+        return MealFood.objects.filter(meal__user=self.request.user.user_profile)

@@ -1,0 +1,24 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    <h1>My Meals</h1>
+    {% if meal_foods %}
+        <table>
+            <thead>
+            <tr>
+                <th>Meal Name</th>
+                <th>Food</th>
+                <th>Grams</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for meal_food in meal_foods %}
+                <tr>
+                    <td>{{ meal_food.meal.meal_type }}</td>
+                    <td>{{ meal_food.food }}</td>
+                    <td>{{ meal_food.grams_quantity}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
