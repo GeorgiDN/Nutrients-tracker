@@ -23,6 +23,16 @@ th {
     margin-top: 20px;
 }
 
+.list-group-item {
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.list-group-item:hover {
+    background-color: #ccc;
+    text-decoration: underline;
+}
+
 
 @media (max-width: 450px) {
     th, td {

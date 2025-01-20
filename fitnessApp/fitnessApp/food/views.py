@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
 
 from fitnessApp.food.forms import MealFoodForm
@@ -262,3 +262,7 @@ class MealFoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessage
     def test_func(self):
         meal_food = self.get_object()
         return self.request.user == meal_food.meal.user.user
+
+
+class NavigationView(TemplateView):
+    template_name = 'food/food-navigation.html'
