@@ -8,7 +8,8 @@
                 <th>Meal Name</th>
                 <th>Food</th>
                 <th>Grams</th>
-                <th></th>
+                <th>-</th>
+                <th>-</th>
             </tr>
             </thead>
             <tbody>
@@ -16,9 +17,12 @@
                 <tr id="meal-{{ meal_food.pk }}">
                     <td>{{ meal_food.meal.meal_type }}</td>
                     <td>{{ meal_food.food }}</td>
-                    <td>{{ meal_food.grams_quantity}}</td>
+                    <td>{{ meal_food.grams_quantity }}</td>
                     <td>
                         <a class="btn btn-secondary btn-sm" href="{% url 'mealfood-update' meal_food.pk %}">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger btn-sm" href="{% url 'mealfood-delete' meal_food.pk %}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}

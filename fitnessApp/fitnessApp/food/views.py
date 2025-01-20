@@ -251,3 +251,13 @@ class MealFoodUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessage
     def get_success_url(self):
         meal_food_pk = self.object.pk
         return f"/food/mealfood-list/#mealfood-{meal_food_pk}"
+
+
+class MealFoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = MealFood
+    success_url = reverse_lazy('mealfood-list')
+    success_message = "MealFood was successfully deleted."
+
+    def test_func(self):
+        meal_food = self.get_object()
+        return self.request.user == meal_food.meal.user.user
