@@ -17,4 +17,5 @@ urlpatterns = [
     path('mealfood/create/', views.MealFoodCreateView.as_view(), name='mealfood-create'),
     path('mealfood/<int:pk>/', views.MealFoodDetailView.as_view(), name='mealfood-detail'),
     path('mealfood-list/', views.MealFoodListView.as_view(), name='mealfood-list'),
+    path('mealfood/<int:pk>/update/', views.MealFoodUpdateView.as_view(), name='mealfood-update'),
 ]

@@ -1,6 +1,6 @@
 {% extends 'home/base.html' %}
 {% block content %}
-    <h1>My Meals</h1>
+    <h1>Meals</h1>
     {% if meal_foods %}
         <table>
             <thead>
@@ -8,14 +8,18 @@
                 <th>Meal Name</th>
                 <th>Food</th>
                 <th>Grams</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {% for meal_food in meal_foods %}
-                <tr>
+                <tr id="meal-{{ meal_food.pk }}">
                     <td>{{ meal_food.meal.meal_type }}</td>
                     <td>{{ meal_food.food }}</td>
                     <td>{{ meal_food.grams_quantity}}</td>
+                    <td>
+                        <a class="btn btn-secondary btn-sm" href="{% url 'mealfood-update' meal_food.pk %}">Edit</a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

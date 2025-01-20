@@ -237,3 +237,17 @@ class MealFoodListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return MealFood.objects.filter(meal__user=self.request.user.user_profile)
+
+
+class MealFoodUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+    model = MealFood
+    fields = ['meal', 'food', 'grams_quantity']
+    success_message = "Meal-Food was updated!"
+
+    def test_func(self):
+        meal_food = self.get_object()
+        return self.request.user == meal_food.meal.user.user
+
+    def get_success_url(self):
+        meal_food_pk = self.object.pk
+        return f"/food/mealfood-list/#mealfood-{meal_food_pk}"
