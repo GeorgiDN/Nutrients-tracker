@@ -3,11 +3,12 @@ from django.urls.base import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 
-from fitnessApp.food.models import Food, Meal
+from fitnessApp.food.forms import MealFoodForm
+from fitnessApp.food.models import Food, Meal, MealFood
 from fitnessApp.users.models import UserProfile
 
 
@@ -200,3 +201,31 @@ class MealDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     def test_func(self):
         meal = self.get_object()
         return self.request.user == meal.user.user
+
+
+class MealFoodCreateView(LoginRequiredMixin, CreateView):
+    model = MealFood
+    form_class = MealFoodForm
+    template_name = 'food/mealfood_form.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user.user_profile
+        return kwargs
+
+    def get_success_url(self):
+        return reverse_lazy('mealfood-detail', kwargs={'pk': self.object.pk})
+
+
+class MealFoodDetailView(LoginRequiredMixin, DetailView):
+    model = MealFood
+    template_name = 'food/mealfood_detail.html'
+
+    def get_object(self, queryset=None):
+        meal_food = get_object_or_404(MealFood, pk=self.kwargs['pk'])
+
+        if meal_food.meal.user != self.request.user.user_profile:
+            raise PermissionDenied("You do not have permission to view this meal food.")
+
+        return meal_food
+

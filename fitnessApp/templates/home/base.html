@@ -33,9 +33,10 @@
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
                         <a class="nav-item nav-link" href="{% url 'food-create' %}">Add food</a>
-                        <a class="nav-item nav-link" href="{% url 'food-list' %}">Food List</a>
-                        <a class="nav-item nav-link" href="{% url 'meal-create' %}">Create Meal</a>
-                        <a class="nav-item nav-link" href="{% url 'meal-list' %}">Meal List</a>
+                        <a class="nav-item nav-link" href="{% url 'food-list' %}">My Food List</a>
+                        <a class="nav-item nav-link" href="{% url 'meal-create' %}">Add Meal Type</a>
+                        <a class="nav-item nav-link" href="{% url 'meal-list' %}">My Meal List</a>
+                        <a class="nav-item nav-link" href="{% url 'mealfood-create' %}">Create Meal</a>
                         <a class="nav-item nav-link" href="{% url 'user_meals' request.user %}">Meals</a>
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
