@@ -1,5 +1,6 @@
 {% extends "home/base.html" %}
 {% block content %}
+    {% include 'food/food-navigation.html' %}
     <h2>{{ meal.meal_type }}</h2>
     <a class="btn btn-secondary btn-sm" href="{% url 'meal-update' meal.pk %}">Edit</a>
     <a class="btn btn-danger btn-sm" href="{% url 'meal-delete' meal.pk %}">Delete</a>

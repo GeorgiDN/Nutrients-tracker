@@ -265,4 +265,4 @@ class MealFoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessage
 
 
 class NavigationView(TemplateView):
-    template_name = 'food/food-navigation.html'
+    template_name = 'food/food-page.html'

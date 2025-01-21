@@ -1,8 +1,11 @@
 {% extends 'home/base.html' %}
 {% block content %}
+    {% include 'food/food-navigation.html' %}
     <h2 class="border-bottom">Meals and Foods</h2>
     <div class="buttons create-btn">
-        <a class="btn btn-info fw-bolder text-dark mt-2" href="{% url 'mealfood-create' %}">Add food to meal</a>
+        <a class="btn btn-info fw-bolder text-dark mt-2" href="{% url 'mealfood-create' %}">Add food to meal
+            <i class="fa-solid fa-circle-plus"></i>
+        </a>
     </div>
 
     {% if meal_foods %}
@@ -19,8 +22,8 @@
             <tbody>
             {% for meal_food in meal_foods %}
                 <tr id="meal-{{ meal_food.pk }}">
-                    <td>{{ meal_food.meal.meal_type }}</td>
-                    <td>{{ meal_food.food }}</td>
+                    <td><a href="{% url 'meal-detail' meal_food.meal.pk %}">{{ meal_food.meal }}</a></td>
+                    <td><a href="{% url 'food-detail' meal_food.food.pk %}">{{ meal_food.food }}</a></td>
                     <td>{{ meal_food.grams_quantity }}</td>
                     <td>
                         <a class="btn btn-secondary btn-sm" href="{% url 'mealfood-update' meal_food.pk %}">Edit</a>
@@ -33,7 +36,7 @@
             </tbody>
         </table>
         <div class="buttons create-btn btn-total">
-            <a class="btn btn-primary fw-bolder text-dark" href="{% url 'user_meals' request.user %}">Calculate</a>
+            <a class="btn btn-primary fw-bolder text-dark" href="{% url 'user_meals' request.user %}">TOTAL</a>
         </div>
 
     {% else %}

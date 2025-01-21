@@ -14,7 +14,6 @@ th, td {
     text-align: center;
 }
 
-
 th {
     background-color: #f2f2f2;
     font-weight: bold;
@@ -44,6 +43,32 @@ th {
     margin-bottom: 1rem;
     float: right;
 }
+
+.food-links {
+    background-color: #626060;
+    padding: 0.6rem;
+    border-radius: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.food-links ul {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.1rem;
+    justify-content: center;
+}
+
+.food-links ul li {
+    list-style-type: none;
+    padding: 0;
+}
+
+.food-links ul li a{
+    color: #fff;
+    font-size: 17px;
+}
+
 
 @media (max-width: 450px) {
     th, td {

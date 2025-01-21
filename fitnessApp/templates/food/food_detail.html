@@ -1,5 +1,11 @@
 {% extends "home/base.html" %}
 {% block content %}
+    {% include 'food/food-navigation.html' %}
+    <div class="buttons create-btn">
+        <a class="btn btn-info fw-bolder text-dark mt-2" href="{% url 'food-create' %}">Add new food
+            <i class="fa-solid fa-circle-plus"></i>
+        </a>
+    </div>
     <h2>{{ food.name }} 100 grams</h2>
     <table class="food-table">
         <thead>
@@ -27,7 +33,6 @@
                     <a class="btn btn-danger btn-sm" href="{% url 'food-delete' object.pk %}">Delete</a>
                 </td>
             </tr>
-        
         </tbody>
     </table>
 {% endblock content %}

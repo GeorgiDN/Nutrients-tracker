@@ -1,5 +1,6 @@
 {% extends 'home/base.html' %}
 {% block content %}
+    {% include 'food/food-navigation.html' %}
     <h2 class="border-bottom">Total Nutrients</h2>
     
     {% for username, meals in daily_macronutrients.items %}

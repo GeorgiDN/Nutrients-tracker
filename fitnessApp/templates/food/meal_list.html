@@ -1,9 +1,12 @@
 {% extends 'home/base.html' %}
 {% block content %}
+    {% include 'food/food-navigation.html' %}
     <h1>My Meals</h1>
 
     <div class="buttons create-btn">
-        <a class="btn btn-info fw-bolder text-dark" href="{% url 'meal-create' %}">Add meal</a>
+        <a class="btn btn-info fw-bolder text-dark" href="{% url 'meal-create' %}">Add meal
+            <i class="fa-solid fa-circle-plus"></i>
+        </a>
     </div>
     {% if meals %}
         <table class="food-table">

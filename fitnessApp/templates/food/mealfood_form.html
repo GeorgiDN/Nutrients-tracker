@@ -1,5 +1,6 @@
 {% extends 'home/base.html' %}
 {% block content %}
+    {% include 'food/food-navigation.html' %}
     <h1>Add Food to Meal</h1>
     <form method="post">
         {% csrf_token %}

@@ -1,12 +1,13 @@
-{% extends 'home/base.html' %}
-{% block content %}
-    <h3>Foods and Meals</h3>
-        <ul class = "list-inline">
+<div class="food-links">
+    <ul>
         {% if user.is_authenticated %}
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'food-list' %}">My Foods</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'meal-list' %}">My Meals</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'mealfood-list' %}">My Meal Food</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'user_meals' request.user %}">Total Nutrients</a></li>
+            <li><a href="{% url 'food-create' %}">Add Food</a></li>
+            <li><a href="{% url 'food-list' %}">Foods</a></li>
+            <li><a href="{% url 'meal-create' %}">Add Meal</a></li>
+            <li><a href="{% url 'meal-list' %}">Meals</a></li>
+            <li><a href="{% url 'mealfood-create' %}">Add Food to Meal</a></li>
+            <li><a href="{% url 'mealfood-list' %}">Meal-Food</a></li>
+            <li><a href="{% url 'user_meals' request.user %}">Total Nutrients</a></li>
         {% endif %}
     </ul>
-{% endblock %}
+</div>
