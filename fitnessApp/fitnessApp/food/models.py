@@ -60,9 +60,15 @@ class Meal(models.Model):
         through='MealFood',
         related_name='meals',
     )
+    order_number = models.PositiveIntegerField(
+        blank=True,
+        null=True,
+        help_text="Optional: Specify the order for this meal type (e.g., 1 for breakfast, 2 for lunch)."
+    )
 
     class Meta:
         unique_together = ('meal_type', 'user')
+        ordering = ('order_number', 'meal_type')
 
     def __str__(self):
         # return f'{self.user.user.username} - {self.meal_type}'
@@ -106,4 +112,4 @@ class MealFood(models.Model):
 
     class Meta:
         unique_together = ('meal', 'food')
-        ordering = ('meal', 'food')
+        ordering = ('meal__order_number', 'meal__meal_type')

@@ -139,7 +139,7 @@ class FoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
 
 class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Meal
-    fields = ['meal_type']
+    fields = ['meal_type', 'order_number']
     success_message = "Meal was created!"
 
     def form_valid(self, form):
@@ -177,7 +177,7 @@ class MealListView(LoginRequiredMixin, ListView):
 
 class MealUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = Meal
-    fields = ['meal_type']
+    fields = ['meal_type', 'order_number']
     success_message = "Meal was updated!"
 
     def form_valid(self, form):

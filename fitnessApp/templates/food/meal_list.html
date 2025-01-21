@@ -9,6 +9,7 @@
         <table class="food-table">
             <thead>
             <tr>
+                <th>№</th>
                 <th>Meal Name</th>
                 <th>-</th>
                 <th>-</th>
@@ -16,7 +17,9 @@
             </thead>
             <tbody>
             {% for meal in meals %}
+
                 <tr>
+                    <td>{{ meal.order_number }}</td>
                     <td id="meal-{{ meal.pk }}">
                         <a href="{% url 'meal-detail' meal.pk %}">{{ meal.meal_type }}</a>
                     </td>
