@@ -1,8 +1,12 @@
 {% extends 'home/base.html' %}
 {% block content %}
-    <h1>Meals</h1>
+    <h2 class="border-bottom">Meals and Foods</h2>
+    <div class="buttons create-btn">
+        <a class="btn btn-info fw-bolder text-dark mt-2" href="{% url 'mealfood-create' %}">Add food to meal</a>
+    </div>
+
     {% if meal_foods %}
-        <table>
+        <table class="food-table">
             <thead>
             <tr>
                 <th>Meal Name</th>
@@ -28,5 +32,11 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="buttons create-btn btn-total">
+            <a class="btn btn-primary fw-bolder text-dark" href="{% url 'user_meals' request.user %}">Calculate</a>
+        </div>
+
+    {% else %}
+        <p>No added food to meal yet.</p>
     {% endif %}
 {% endblock %}

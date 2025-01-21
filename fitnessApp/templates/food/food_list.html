@@ -1,7 +1,12 @@
 {% extends 'home/base.html' %}
 {% block content %}
-    <h1>My foods</h1>
-    <h4>Nutrients for 100 grams</h4>
+    <h2 class="border-bottom">My Foods</h2>
+
+    <div class="buttons create-btn">
+        <a class="btn btn-info fw-bolder text-dark mt-2" href="{% url 'food-create' %}">Add new food</a>
+    </div>
+
+    <h4 class="pt-2">Nutrients for 100 grams</h4>
     {% if foods %}
         <table class="food-table">
             <thead>
@@ -36,7 +41,7 @@
             </tbody>
         </table>
     {% else %}
-        <p>No foods have been added yet. <a href="{% url 'food-create' %}">Add a new food</a>.</p>
+        <p>No foods have been added yet.</p>
     {% endif %}
 
 {% endblock %}

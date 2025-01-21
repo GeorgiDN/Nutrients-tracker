@@ -3,12 +3,9 @@
     <h3>Foods and Meals</h3>
         <ul class = "list-inline">
         {% if user.is_authenticated %}
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'food-create' %}">Add food</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'food-list' %}">My Food List</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'meal-create' %}">Add Meal Type</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'meal-list' %}">My Meal List</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'mealfood-create' %}">Create Meal</a></li>
-            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'mealfood-list' %}">Meal Food List</a></li>
+            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'food-list' %}">My Foods</a></li>
+            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'meal-list' %}">My Meals</a></li>
+            <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'mealfood-list' %}">My Meal Food</a></li>
             <li class="list-group-item"><a class="nav-item nav-link text-dark" href="{% url 'user_meals' request.user %}">Total Nutrients</a></li>
         {% endif %}
     </ul>

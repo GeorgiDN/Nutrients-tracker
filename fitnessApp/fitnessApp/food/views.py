@@ -147,7 +147,7 @@ class MealCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form.instance.user = user_profile
         try:
             meal = form.save()
-            return redirect('meal-detail', pk=meal.pk)
+            return redirect('meal-list')
         except IntegrityError:
             messages.error(self.request, f"You already have a meal with name '{form.instance.meal_type}'")
             return redirect('meal-create')

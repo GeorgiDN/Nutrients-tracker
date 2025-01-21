@@ -1,8 +1,12 @@
 {% extends 'home/base.html' %}
 {% block content %}
     <h1>My Meals</h1>
+
+    <div class="buttons create-btn">
+        <a class="btn btn-info fw-bolder text-dark" href="{% url 'meal-create' %}">Add meal</a>
+    </div>
     {% if meals %}
-        <table>
+        <table class="food-table">
             <thead>
             <tr>
                 <th>Meal Name</th>
@@ -13,7 +17,7 @@
             <tbody>
             {% for meal in meals %}
                 <tr>
-                    <td id="meal-{{ meal.pk }}" class="list-group-item">
+                    <td id="meal-{{ meal.pk }}">
                         <a href="{% url 'meal-detail' meal.pk %}">{{ meal.meal_type }}</a>
                     </td>
                     <td><a class="btn btn-secondary btn-sm" href="{% url 'meal-update' meal.pk %}">Edit</a></td>
@@ -23,6 +27,8 @@
             </tbody>
 
         </table>
+    {% else %}
+        <p>No added meals yet</p>
     {% endif %}
 
 {% endblock %}
