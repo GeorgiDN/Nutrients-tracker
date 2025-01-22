@@ -2,6 +2,10 @@
 {% load crispy_forms_tags %}
 {% block content %}
     {% include 'food/food-navigation.html' %}
+    <div  class="table-list-link">
+        <i class="fa-solid fa-arrow-right"></i>
+        <a href="{% url 'common-foods' %}">Table with common foods</a>
+    </div>
     <div class="content-section">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -14,23 +18,5 @@
             </div>
         </form>
     </div>
-
-    <div class="common-foods">
-        <h3>Or choose from common foods:</h3>
-        <ul>
-            {% for food in common_foods %}
-                <li>
-                    <strong>{{ food.name }}</strong> -
-                    Calories: {{ food.calories }},
-                    Carbs: {{ food.carbs }},
-                    Protein: {{ food.protein }},
-                    Fats: {{ food.fats }}
-                    <form method="post" action="{% url 'add-common-food' food.pk %}" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-success">Add</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+    
 {% endblock %}

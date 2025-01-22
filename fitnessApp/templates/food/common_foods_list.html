@@ -1,0 +1,37 @@
+{% extends "home/base.html" %}
+{% block content %}
+    {% include 'food/food-navigation.html' %}
+    <div class="common-foods">
+        <h3>You can add food to your foods</h3>
+        <h4>All nutrients are for 100 grams</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>Food Name</th>
+                <th>Calories</th>
+                <th>Carbs</th>
+                <th>Protein</th>
+                <th>Fats</th>
+                <th>-</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for food in common_foods %}
+                <tr id="{{ food.pk }}">
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.calories }}</td>
+                    <td>{{ food.carbs }}</td>
+                    <td>{{ food.protein }}</td>
+                    <td>{{ food.fats }}</td>
+                    <td>
+                        <form method="post" action="{% url 'add-common-food' food.pk %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-success">Add</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

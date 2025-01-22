@@ -5,7 +5,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('meals/<str:username>/', views.user_meals_view, name='user_meals'),
     path('food/new/', views.FoodCreateView.as_view(), name='food-create'),
-    path('add-common-food/<int:pk>/', views.add_common_food, name='add-common-food'),
     path('food/<int:pk>/', views.FoodDetailView.as_view(), name='food-detail'),
     path('food-list/', views.FoodListView.as_view(), name='food-list'),
     path('food/<int:pk>/update/', views.FoodUpdateView.as_view(), name='food-update'),
@@ -21,4 +20,6 @@ urlpatterns = [
     path('mealfood/<int:pk>/update/', views.MealFoodUpdateView.as_view(), name='mealfood-update'),
     path('mealfood/<int:pk>/delete/', views.MealFoodDeleteView.as_view(), name='mealfood-delete'),
     path('food/navigation/', views.NavigationView.as_view(), name='food-navigation'),
+    path('add-common-food/<int:pk>/', views.add_common_food, name='add-common-food'),
+    path('common-foods/', views.CommonFoodsListView.as_view(), name='common-foods'),
 ]

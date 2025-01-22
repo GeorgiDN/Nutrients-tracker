@@ -92,26 +92,6 @@ class FoodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return context
 
 
-@login_required
-def add_common_food(request, pk):
-    user_profile = UserProfile.objects.get(user=request.user)
-    common_food = get_object_or_404(FoodListTable, pk=pk)
-
-    try:
-        Food.objects.create(
-            user=user_profile,
-            name=common_food.name,
-            calories=common_food.calories,
-            carbs=common_food.carbs,
-            protein=common_food.protein,
-            fats=common_food.fats
-        )
-        messages.success(request, f"{common_food.name} has been added to your food list.")
-    except IntegrityError:
-        messages.error(request, f"You already have a food '{common_food.name}' in your food list.")
-    return redirect('food-create')
-
-
 class FoodDetailView(LoginRequiredMixin, DetailView):
     model = Food
 
@@ -289,6 +269,35 @@ class MealFoodDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessage
     def test_func(self):
         meal_food = self.get_object()
         return self.request.user == meal_food.meal.user.user
+
+
+@login_required
+def add_common_food(request, pk):
+    user_profile = UserProfile.objects.get(user=request.user)
+    common_food = get_object_or_404(FoodListTable, pk=pk)
+
+    try:
+        Food.objects.create(
+            user=user_profile,
+            name=common_food.name,
+            calories=common_food.calories,
+            carbs=common_food.carbs,
+            protein=common_food.protein,
+            fats=common_food.fats
+        )
+        messages.success(request, f"{common_food.name} has been added to your food list.")
+    except IntegrityError:
+        messages.error(request, f"You already have a food '{common_food.name}' in your food list.")
+    return redirect(f"{reverse('common-foods')}#{pk}")
+
+
+class CommonFoodsListView(LoginRequiredMixin, ListView):
+    model = FoodListTable
+    template_name = 'food/common_foods_list.html'
+    context_object_name = 'common_foods'
+
+    def get_queryset(self):
+        return FoodListTable.objects.all()
 
 
 class NavigationView(TemplateView):
