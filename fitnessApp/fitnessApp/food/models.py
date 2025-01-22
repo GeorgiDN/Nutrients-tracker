@@ -1,38 +1,16 @@
 from django.db import models
 from fitnessApp.users.models import UserProfile
 from django.urls.base import reverse
+from fitnessApp.food.models_mixins import FoodMixin
 
 
-class Food(models.Model):
+class Food(FoodMixin):
     user = models.ForeignKey(
         to=UserProfile,
         on_delete=models.CASCADE,
         related_name='user_foods',
         blank=True,
         null=True,
-    )
-    name = models.CharField(
-        max_length=255,
-    )
-    calories = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        default=0
-    )
-    carbs = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        default=0
-    )
-    protein = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        default=0
-    )
-    fats = models.DecimalField(
-        max_digits=6,
-        decimal_places=2,
-        default=0
     )
 
     def get_absolute_url(self):
@@ -44,6 +22,14 @@ class Food(models.Model):
     class Meta:
         ordering = ['name']
         unique_together = ('name', 'user')
+
+
+class FoodListTable(FoodMixin):
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
 
 
 class Meal(models.Model):

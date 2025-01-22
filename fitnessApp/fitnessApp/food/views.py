@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.urls.base import reverse, reverse_lazy
 from django.contrib import messages
@@ -8,7 +9,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django.contrib.messages.views import SuccessMessageMixin
 
 from fitnessApp.food.forms import MealFoodForm
-from fitnessApp.food.models import Food, Meal, MealFood
+from fitnessApp.food.models import Food, Meal, MealFood, FoodListTable
 from fitnessApp.users.models import UserProfile
 
 
@@ -16,6 +17,7 @@ def home(request):
     return render(request, 'home/home.html')
 
 
+@login_required
 def user_meals_view(request, username):
     user = UserProfile.objects.get(user__username=username)
     daily_macronutrients = {username: {}}
@@ -83,6 +85,31 @@ class FoodCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         except IntegrityError:
             messages.error(self.request, f"You already have a food '{form.instance.name}' added to food list.")
             return redirect('food-create')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['common_foods'] = FoodListTable.objects.all()
+        return context
+
+
+@login_required
+def add_common_food(request, pk):
+    user_profile = UserProfile.objects.get(user=request.user)
+    common_food = get_object_or_404(FoodListTable, pk=pk)
+
+    try:
+        Food.objects.create(
+            user=user_profile,
+            name=common_food.name,
+            calories=common_food.calories,
+            carbs=common_food.carbs,
+            protein=common_food.protein,
+            fats=common_food.fats
+        )
+        messages.success(request, f"{common_food.name} has been added to your food list.")
+    except IntegrityError:
+        messages.error(request, f"You already have a food '{common_food.name}' in your food list.")
+    return redirect('food-create')
 
 
 class FoodDetailView(LoginRequiredMixin, DetailView):

@@ -6,12 +6,31 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Add Food</legend>
+                <legend class="border-bottom mb-4">Food</legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Add</button>
+                <button class="btn btn-outline-info" type="submit">SAVE</button>
             </div>
         </form>
+    </div>
+
+    <div class="common-foods">
+        <h3>Or choose from common foods:</h3>
+        <ul>
+            {% for food in common_foods %}
+                <li>
+                    <strong>{{ food.name }}</strong> -
+                    Calories: {{ food.calories }},
+                    Carbs: {{ food.carbs }},
+                    Protein: {{ food.protein }},
+                    Fats: {{ food.fats }}
+                    <form method="post" action="{% url 'add-common-food' food.pk %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-success">Add</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
