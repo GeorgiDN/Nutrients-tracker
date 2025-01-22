@@ -1,6 +1,8 @@
 {% extends "home/base.html" %}
+{% load static %}
 {% block content %}
     {% include 'food/food-navigation.html' %}
+
     <div class="common-foods">
         <h3>You can add food to your foods</h3>
         <h4>All nutrients are for 100 grams</h4>
@@ -17,7 +19,7 @@
             </thead>
             <tbody>
             {% for food in common_foods %}
-                <tr id="{{ food.pk }}">
+                <tr id="food-{{ food.pk }}">
                     <td>{{ food.name }}</td>
                     <td>{{ food.calories }}</td>
                     <td>{{ food.carbs }}</td>
@@ -34,4 +36,8 @@
             </tbody>
         </table>
     </div>
+    
+    <script src="{% static 'js/food/windollScroll.js' %}"></script>
+
 {% endblock %}
+

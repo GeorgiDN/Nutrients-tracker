@@ -49,6 +49,10 @@ th {
     padding: 0.6rem;
     border-radius: 0.8rem;
     margin-bottom: 1rem;
+    position: sticky;
+    top: 5rem;
+    z-index: 1000;
+
 }
 
 .food-links ul {
@@ -64,17 +68,15 @@ th {
     padding: 0;
 }
 
-.food-links ul li a{
+.food-links ul li a {
     color: #fff;
     font-size: 17px;
 }
 
 .table-list-link {
-    font-size: 20px;
-    font-weight: 500;
-    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 18px;
     margin-bottom: 1rem;
-
 }
 
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
+from django.http import JsonResponse
 from django.urls.base import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -285,10 +286,10 @@ def add_common_food(request, pk):
             protein=common_food.protein,
             fats=common_food.fats
         )
-        messages.success(request, f"{common_food.name} has been added to your food list.")
     except IntegrityError:
         messages.error(request, f"You already have a food '{common_food.name}' in your food list.")
-    return redirect(f"{reverse('common-foods')}#{pk}")
+    # return redirect(f"{reverse('common-foods')}#food-{pk}")
+    return redirect('common-foods')
 
 
 class CommonFoodsListView(LoginRequiredMixin, ListView):
