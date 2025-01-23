@@ -300,6 +300,13 @@ class CommonFoodsListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return FoodListTable.objects.all()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user.user_profile
+        my_foods = Food.objects.filter(user=user).values_list('name', flat=True)
+        context['my_foods'] = my_foods
+        return context
+
 
 class NavigationView(TemplateView):
     template_name = 'food/food-page.html'

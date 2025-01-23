@@ -26,17 +26,22 @@
                     <td>{{ food.protein }}</td>
                     <td>{{ food.fats }}</td>
                     <td>
-                        <form method="post" action="{% url 'add-common-food' food.pk %}" style="display: inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-outline-success">Add</button>
-                        </form>
+                        {% if food.name not in my_foods %}
+                            <form method="post" action="{% url 'add-common-food' food.pk %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-success">Add</button>
+                            </form>
+
+                        {% else %}
+                            <span class="text-info" disabled>Added</span>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-    
+
     <script src="{% static 'js/food/windollScroll.js' %}"></script>
 
 {% endblock %}
