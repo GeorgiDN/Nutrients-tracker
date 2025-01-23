@@ -26,7 +26,7 @@
                     <td>{{ food.protein }}</td>
                     <td>{{ food.fats }}</td>
                     <td>
-                        {% if food.name not in my_foods %}
+                        {% if not food.is_in_my_foods %}
                             <form method="post" action="{% url 'add-common-food' food.pk %}" style="display: inline;">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-sm btn-outline-success">Add</button>

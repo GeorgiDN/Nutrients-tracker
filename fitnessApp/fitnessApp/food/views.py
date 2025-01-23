@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import JsonResponse
 from django.urls.base import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -8,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView, TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
-
+from django.db.models import Case, When, Value, BooleanField
 from fitnessApp.food.forms import MealFoodForm
 from fitnessApp.food.models import Food, Meal, MealFood, FoodListTable
 from fitnessApp.users.models import UserProfile
@@ -298,12 +297,20 @@ class CommonFoodsListView(LoginRequiredMixin, ListView):
     context_object_name = 'common_foods'
 
     def get_queryset(self):
-        return FoodListTable.objects.all()
+        user = self.request.user.user_profile
+        my_foods = Food.objects.filter(user=user).values_list('name', flat=True)
+        return FoodListTable.objects.annotate(
+            is_in_my_foods=Case(
+                When(name__in=my_foods, then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField(),
+            )
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user.user_profile
-        my_foods = Food.objects.filter(user=user).values_list('name', flat=True)
+        my_foods = set(Food.objects.filter(user=user).values_list('name', flat=True))
         context['my_foods'] = my_foods
         return context
 
