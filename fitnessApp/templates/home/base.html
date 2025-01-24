@@ -34,6 +34,7 @@
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
                         <a class="nav-item nav-link" href="{% url 'food-navigation' %}">Foods</a>
+                        <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-outline-light">Logout</button>

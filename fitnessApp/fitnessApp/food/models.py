@@ -1,10 +1,10 @@
 from django.db import models
 from fitnessApp.users.models import UserProfile
 from django.urls.base import reverse
-from fitnessApp.food.models_mixins import FoodMixin
+from fitnessApp.food.models_mixins import NameMixin, NutritionMixin
 
 
-class Food(FoodMixin):
+class Food(NameMixin, NutritionMixin):
     user = models.ForeignKey(
         to=UserProfile,
         on_delete=models.CASCADE,
@@ -24,7 +24,7 @@ class Food(FoodMixin):
         unique_together = ('name', 'user')
 
 
-class FoodListTable(FoodMixin):
+class FoodListTable(NameMixin, NutritionMixin):
     class Meta:
         ordering = ['name']
 
