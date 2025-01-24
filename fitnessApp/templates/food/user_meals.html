@@ -1,10 +1,11 @@
 {% extends 'home/base.html' %}
+{% load static %}
 {% block content %}
     {% include 'food/food-navigation.html' %}
     <h2 class="border-bottom">Total Nutrients</h2>
-    
+
     {% for username, meals in daily_macronutrients.items %}
-        
+
         {% for meal_type, details in meals.items %}
             {% if meal_type != "Overall Total" %}
                 <h4>
@@ -51,6 +52,7 @@
                     <table>
                         <thead>
                         <tr>
+                            <th>-</th>
                             <th>Calories</th>
                             <th>Carbs</th>
                             <th>Protein</th>
@@ -59,16 +61,27 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{ details.Calories|floatformat:2 }}</td>
-                            <td>{{ details.Carbs|floatformat:2 }}</td>
-                            <td>{{ details.Protein|floatformat:2 }}</td>
-                            <td>{{ details.Fats|floatformat:2 }}</td>
+                            <td><b>Total</b></td>
+                            <td class="calories-total">{{ details.Calories|floatformat:2 }}</td>
+                            <td class="carbs-total">{{ details.Carbs|floatformat:2 }}</td>
+                            <td class="protein-total">{{ details.Protein|floatformat:2 }}</td>
+                            <td class="fats-total">{{ details.Fats|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>My Goal</b></td>
+                            <td class="calories-goal">{{ userprofile.calories|floatformat:2 }}</td>
+                            <td class="carbs-goal">{{ userprofile.carbs|floatformat:2 }}</td>
+                            <td class="protein-goal">{{ userprofile.protein|floatformat:2 }}</td>
+                            <td class="fats-goal">{{ userprofile.fats|floatformat:2 }}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
             {% endif %}
         {% endfor %}
     {% endfor %}
+
+    <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
 
 {% endblock %}

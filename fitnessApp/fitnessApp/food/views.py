@@ -66,7 +66,8 @@ def user_meals_view(request, username):
     daily_macronutrients[username]["Overall Total"] = overall_totals
 
     context = {
-        'daily_macronutrients': daily_macronutrients
+        'daily_macronutrients': daily_macronutrients,
+        'userprofile': user,
     }
 
     return render(request, 'food/user_meals.html', context)
