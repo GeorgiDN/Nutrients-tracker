@@ -23,6 +23,25 @@ th {
     margin-top: 20px;
 }
 
+.user-meals-total table {
+    table-layout: fixed;
+}
+
+.user-meals-total th, td {
+    width: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.user-meals-total th:first-child, td:first-child {
+    width: 30%;
+}
+
+.user-meals-total .food-table {
+    margin-top: 20px;
+}
+
 .list-group-item {
     font-weight: 500;
     font-size: 18px;
@@ -79,8 +98,13 @@ th {
     margin-bottom: 1rem;
 }
 
+@media (max-width: 520px) {
+    .user-meals-total th:first-child, td:first-child {
+        width: 22%;
+    }
+}
 
-@media (max-width: 450px) {
+@media (max-width: 460px) {
     th, td {
         font-size: 14px;
     }
@@ -88,4 +112,9 @@ th {
     .btn-sm {
         padding: 4px;
     }
+    .user-meals-total th:first-child, td:first-child {
+        width: auto;
+    }
 }
+
+

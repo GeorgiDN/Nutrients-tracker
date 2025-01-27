@@ -3,7 +3,8 @@
 {% block content %}
     {% include 'food/food-navigation.html' %}
     <h2 class="border-bottom">Total Nutrients</h2>
-
+    
+    <div class="user-meals-total">
     {% for username, meals in daily_macronutrients.items %}
 
         {% for meal_type, details in meals.items %}
@@ -16,9 +17,9 @@
                 <table>
                     <thead>
                     <tr>
-                        <th>Food Name</th>
+                        <th class="food-name">Food Name</th>
                         <th>Grams</th>
-                        <th>Calories</th>
+                        <th>Kcal</th>
                         <th>Carbs</th>
                         <th>Protein</th>
                         <th>Fats</th>
@@ -28,7 +29,7 @@
                     {% for food, quantities in details.Foods.items %}
                         {% for quantity, nutrients in quantities.items %}
                             <tr>
-                                <td><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
+                                <td class="food-name"><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
                                 <td>{{ quantity }}</td>
                                 <td>{{ nutrients.Calories|floatformat:2 }}</td>
                                 <td>{{ nutrients.Carbs|floatformat:2 }}</td>
@@ -53,7 +54,7 @@
                         <thead>
                         <tr>
                             <th>-</th>
-                            <th>Calories</th>
+                            <th>Kcal</th>
                             <th>Carbs</th>
                             <th>Protein</th>
                             <th>Fats</th>
@@ -83,5 +84,6 @@
     {% endfor %}
 
     <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
-
+    </div>
 {% endblock %}
+ <class>=food-name</class>
