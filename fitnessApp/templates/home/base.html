@@ -17,7 +17,7 @@
         <title>FitnessApp</title>
     {% endif %}
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <header class="site-header">
     <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
@@ -48,7 +48,7 @@
         </div>
     </nav>
 </header>
-<main role="main" class="container">
+<main role="main" class="container flex-grow-1">
     <div class="row">
         <div class="col-md-8">
             {% if messages %}
@@ -74,6 +74,10 @@
         </div>
     </div>
 </main>
+<footer class="text-center text-white bg-dark py-2 mt-4">
+    <p class="mb-0">“The groundwork of all happiness is health.” – Leigh Hunt</p>
+    <p class="mb-0">&copy; 2025 FitnessApp</p>
+</footer>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

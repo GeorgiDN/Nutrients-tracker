@@ -2,6 +2,8 @@ body {
     background: #fafafa;
     color: #333333;
     margin-top: 5rem;
+    justify-content: space-between !important;
+    position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -88,7 +90,6 @@ a.article-title:hover {
     font-size: 2.5rem;
 }
 
-
 .content-section {
     background: #ffffff;
     padding: 10px 20px;
@@ -139,8 +140,20 @@ a.article-title:hover {
     overflow-wrap: break-word;
 }
 
-@media (min-width: 1300px) and (max-width: 2600px) {
+main {
+    padding-bottom: 6rem;
+}
 
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 10rem;
+}
+
+@media (min-width: 1300px) and (max-width: 2600px) {
     .media-body {
         max-width: 700px;
     }
@@ -167,7 +180,6 @@ a.article-title:hover {
     .media-body {
         max-width: 300px;
     }
-
 }
 
 @media (min-width: 600px) and (max-width: 750px) {
@@ -177,15 +189,14 @@ a.article-title:hover {
 
 }
 
-
 @media (max-width: 765px) {
-	.search-btn {
+    .search-btn {
         left: 170px;
         max-width: 20px;
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 458px) {
     .content-section {
         display: flex;
         flex-direction: column;
@@ -199,4 +210,3 @@ a.article-title:hover {
         align-items: center;
     }
 }
-
