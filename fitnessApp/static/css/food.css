@@ -19,6 +19,10 @@ th {
     font-weight: bold;
 }
 
+td {
+    font-weight: 500;
+}
+
 .overall-total {
     margin-top: 20px;
 }
@@ -98,6 +102,10 @@ th {
     margin-bottom: 1rem;
 }
 
+.nutrients-total {
+    font-weight: bold;
+}
+
 @media (max-width: 520px) {
     .user-meals-total th:first-child, td:first-child {
         width: 22%;
@@ -107,6 +115,7 @@ th {
 @media (max-width: 460px) {
     th, td {
         font-size: 14px;
+        padding: 2px;
     }
 
     .btn-sm {
@@ -118,3 +127,9 @@ th {
 }
 
 
+@media (max-width: 370px) {
+    th, td {
+        font-size: 13px;
+        padding: 2px;
+    }
+}

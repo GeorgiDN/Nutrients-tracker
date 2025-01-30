@@ -38,18 +38,18 @@
                             </tr>
                         {% endfor %}
                     {% endfor %}
-                    <tr style="font-weight: bold;">
-                        <td colspan="2">Total for {{ meal_type }}</td>
-                        <td>{{ details.Totals.Calories|floatformat:2 }}</td>
-                        <td>{{ details.Totals.Carbs|floatformat:2 }}</td>
-                        <td>{{ details.Totals.Protein|floatformat:2 }}</td>
-                        <td>{{ details.Totals.Fats|floatformat:2 }}</td>
+                    <tr class="bg-info" style="font-weight: bold;">
+                        <td class="nutrients-total" colspan="2">Total for {{ meal_type }}</td>
+                        <td class="nutrients-total">{{ details.Totals.Calories|floatformat:2 }}</td>
+                        <td class="nutrients-total">{{ details.Totals.Carbs|floatformat:2 }}</td>
+                        <td class="nutrients-total">{{ details.Totals.Protein|floatformat:2 }}</td>
+                        <td class="nutrients-total">{{ details.Totals.Fats|floatformat:2 }}</td>
                     </tr>
                     </tbody>
                 </table>
             {% else %}
                 <div class="overall-total">
-                    <h3>Total:</h3>
+                    <h3 class="text-primary">TOTAL</h3>
                     <table>
                         <thead>
                         <tr>
@@ -61,26 +61,33 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><b>Total</b></td>
-                            <td class="calories-total">{{ details.Calories|floatformat:2 }}</td>
-                            <td class="carbs-total">{{ details.Carbs|floatformat:2 }}</td>
-                            <td class="protein-total">{{ details.Protein|floatformat:2 }}</td>
-                            <td class="fats-total">{{ details.Fats|floatformat:2 }}</td>
+                        <tr class="bg-success">
+                            <td><b>TOTAL</b></td>
+                            <td class="calories-total nutrients-total">{{ details.Calories|floatformat:2 }}</td>
+                            <td class="carbs-total nutrients-total">{{ details.Carbs|floatformat:2 }}</td>
+                            <td class="protein-total nutrients-total">{{ details.Protein|floatformat:2 }}</td>
+                            <td class="fats-total nutrients-total">{{ details.Fats|floatformat:2 }}</td>
+                        </tr>
+                        <tr class="bg-primary">
+                            <td><b>MY GOAL</b></td>
+                            <td class="calories-goal nutrients-total">{{ userprofile.calories|floatformat:2 }}</td>
+                            <td class="carbs-goal nutrients-total">{{ userprofile.carbs|floatformat:2 }}</td>
+                            <td class="protein-goal nutrients-total">{{ userprofile.protein|floatformat:2 }}</td>
+                            <td class="fats-goal nutrients-total">{{ userprofile.fats|floatformat:2 }}</td>
                         </tr>
                         <tr>
-                            <td><b>My Goal</b></td>
-                            <td class="calories-goal">{{ userprofile.calories|floatformat:2 }}</td>
-                            <td class="carbs-goal">{{ userprofile.carbs|floatformat:2 }}</td>
-                            <td class="protein-goal">{{ userprofile.protein|floatformat:2 }}</td>
-                            <td class="fats-goal">{{ userprofile.fats|floatformat:2 }}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Difference</b></td>
+                            <td><b>Grams diff</b></td>
                             <td class="calories-diff-grams"></td>
                             <td class="carbs-diff-grams"></td>
                             <td class="protein-diff-grams"></td>
                             <td class="fats-diff-grams"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Percent diff</b></td>
+                            <td class="calories-diff-percent"></td>
+                            <td class="carbs-diff-percent"></td>
+                            <td class="protein-diff-percent"></td>
+                            <td class="fats-diff-percent"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -93,4 +100,4 @@
     <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
     </div>
 {% endblock %}
- <class>=food-name</class>
+

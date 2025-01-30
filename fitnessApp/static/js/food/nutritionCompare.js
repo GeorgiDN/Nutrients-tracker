@@ -1,3 +1,20 @@
+
+function calculatePercentageDiff(total, goal) {
+    return goal !== 0 ? (((total - goal) / goal) * 100).toFixed(2) : "n/a";
+
+}
+
+function calculateGramsDiff(total, goal) {
+    return (total - goal).toFixed(2);
+}
+
+function markExceededNutrientGoals(cellTotalEl, cellGramsTdEl, cellDiffPercentTdEl) {
+    cellTotalEl.style.backgroundColor = "yellow";
+    cellTotalEl.style.color = "red";
+    cellGramsTdEl.textContent = `+${cellGramsTdEl.textContent}`;
+    cellDiffPercentTdEl.textContent = `+${cellDiffPercentTdEl.textContent}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const totalCaloriesTdEl = document.querySelector(".calories-total");
     const totalCalories = parseFloat(totalCaloriesTdEl.textContent);
@@ -22,29 +39,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const proteinDiffGramsTdEl = document.querySelector(".protein-diff-grams");
     const fatsDiffGramsTdEl = document.querySelector(".fats-diff-grams");
 
-    calDiffGramsTdEl.textContent = ` ${(totalCalories - caloriesGoal).toFixed(2)}`;
-    carbsDiffGramsTdEl.textContent = ` ${(totalCarbs - carbsGoal).toFixed(2)}`;
-    proteinDiffGramsTdEl.textContent = ` ${(totalProtein - proteinGoal).toFixed(2)}`;
-    fatsDiffGramsTdEl.textContent = ` ${(totalFats - fatsGoal).toFixed(2)}`;
+    const calDiffPercentTdEl = document.querySelector(".calories-diff-percent");
+    const carbsDiffPercentTdEl = document.querySelector(".carbs-diff-percent");
+    const proteinDiffPercentTdEl = document.querySelector(".protein-diff-percent");
+    const fatsDiffPercentTdEl = document.querySelector(".fats-diff-percent");
+
+    calDiffGramsTdEl.textContent = calculateGramsDiff(totalCalories, caloriesGoal);
+    carbsDiffGramsTdEl.textContent = calculateGramsDiff(totalCarbs, carbsGoal);
+    proteinDiffGramsTdEl.textContent = calculateGramsDiff(totalProtein, proteinGoal);
+    fatsDiffGramsTdEl.textContent = calculateGramsDiff(totalFats, fatsGoal);
+
+    calDiffPercentTdEl.textContent = `${calculatePercentageDiff(totalCalories, caloriesGoal)}%`;
+    carbsDiffPercentTdEl.textContent = `${calculatePercentageDiff(totalCarbs, carbsGoal)}%`;
+    proteinDiffPercentTdEl.textContent = `${calculatePercentageDiff(totalProtein, proteinGoal)}%`;
+    fatsDiffPercentTdEl.textContent = `${calculatePercentageDiff(totalFats, fatsGoal)}%`;
 
     if (totalCalories > caloriesGoal) {
-        totalCaloriesTdEl.style.backgroundColor = "yellow";
-        totalCaloriesTdEl.style.color = "red";
-        calDiffGramsTdEl.textContent = `+ ${(totalCalories - caloriesGoal).toFixed(2)}`
+        markExceededNutrientGoals(totalCaloriesTdEl, calDiffGramsTdEl, calDiffPercentTdEl);
     }
     if (totalCarbs > carbsGoal) {
-        totalCarbsTdEl.style.backgroundColor = "yellow";
-        totalCarbsTdEl.style.color = "red";
-        carbsDiffGramsTdEl.textContent = `+ ${(totalCarbs - carbsGoal).toFixed(2)}`;
+        markExceededNutrientGoals(totalCarbsTdEl, carbsDiffGramsTdEl, carbsDiffPercentTdEl);
     }
     if (totalProtein > proteinGoal) {
-        totalProteinTdEl.style.backgroundColor = "yellow";
-        totalProteinTdEl.style.color = "red";
-        proteinDiffGramsTdEl.textContent = `+ ${(totalProtein - proteinGoal).toFixed(2)}`;
+        markExceededNutrientGoals(totalProteinTdEl, proteinDiffGramsTdEl, proteinDiffPercentTdEl);
     }
     if (totalFats > fatsGoal) {
-        totalFatsTdEl.style.backgroundColor = "yellow";
-        totalFatsTdEl.style.color = "red";
-        fatsDiffGramsTdEl.textContent = `+ ${(totalFats - fatsGoal).toFixed(2)}`;
+        markExceededNutrientGoals(totalFatsTdEl, fatsDiffGramsTdEl, fatsDiffPercentTdEl);
     }
 });
