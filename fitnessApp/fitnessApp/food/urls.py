@@ -23,4 +23,7 @@ urlpatterns = [
     path('add-common-food/<int:pk>/', views.add_common_food, name='add-common-food'),
     path('common-foods/', views.CommonFoodsListView.as_view(), name='common-foods'),
     path("save-user-nutrients/", views.save_nutrient_data, name="save_user_nutrients"),
+    path("user-nutrients-list/", views.UserNutrientsListView.as_view(), name="user-nutrients-list"),
+    path("food/<str:date>/", views.UserNutrientsDetailView.as_view(), name="user-nutrients-detail"),
+
 ]

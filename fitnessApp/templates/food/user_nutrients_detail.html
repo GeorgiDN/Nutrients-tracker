@@ -1,0 +1,55 @@
+{% extends 'home/base.html' %}
+{% block content %}
+    {% include 'food/food-navigation.html' %}
+    <h2>Nutrient Data for {{ date }}</h2>
+
+    {% for username, meals in nutrient_data.items %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Meal Type</th>
+                    <th>Food Name</th>
+                    <th>Grams</th>
+                    <th>Calories</th>
+                    <th>Carbs</th>
+                    <th>Protein</th>
+                    <th>Fats</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for meal_type, foods in meals.items %}
+                    {% if meal_type == "TotalNutrients" %}
+                        <tr>
+                            <td colspan="2"><strong>Total Nutrients</strong></td>
+                            <td></td>
+                            <td>{{ foods.total.calories }}</td>
+                            <td>{{ foods.total.carbs }}</td>
+                            <td>{{ foods.total.protein }}</td>
+                            <td>{{ foods.total.fats }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><strong>Goal Nutrients</strong></td>
+                            <td></td>
+                            <td>{{ foods.goal.calories }}</td>
+                            <td>{{ foods.goal.carbs }}</td>
+                            <td>{{ foods.goal.protein }}</td>
+                            <td>{{ foods.goal.fats }}</td>
+                        </tr>
+                    {% else %}
+                        {% for food_name, nutrients in foods.items %}
+                            <tr>
+                                <td>{{ meal_type }}</td>
+                                <td>{{ food_name }}</td>
+                                <td>{{ nutrients.grams }}</td>
+                                <td>{{ nutrients.calories }}</td>
+                                <td>{{ nutrients.carbs }}</td>
+                                <td>{{ nutrients.protein }}</td>
+                                <td>{{ nutrients.fats }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}

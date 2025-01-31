@@ -96,6 +96,7 @@
             {% endfor %}
         {% endfor %}
         <button id="save-nutrients">Save Nutrients</button>
+        <a href="{% url 'user-nutrients-list' %}">History</a>
 
         <span class="username" style="display: none;">{{ user }}</span>
         <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
