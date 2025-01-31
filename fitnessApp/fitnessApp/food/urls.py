@@ -22,4 +22,5 @@ urlpatterns = [
     path('food/navigation/', views.NavigationView.as_view(), name='food-navigation'),
     path('add-common-food/<int:pk>/', views.add_common_food, name='add-common-food'),
     path('common-foods/', views.CommonFoodsListView.as_view(), name='common-foods'),
+    path("save-user-nutrients/", views.save_user_nutrients, name="save_user_nutrients"),
 ]

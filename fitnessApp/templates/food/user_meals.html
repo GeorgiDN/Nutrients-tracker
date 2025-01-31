@@ -3,57 +3,21 @@
 {% block content %}
     {% include 'food/food-navigation.html' %}
     <h2 class="border-bottom">Total Nutrients</h2>
-    
     <div class="user-meals-total">
-    {% for username, meals in daily_macronutrients.items %}
+        {% for username, meals in daily_macronutrients.items %}
 
-        {% for meal_type, details in meals.items %}
-            {% if meal_type != "Overall Total" %}
-                <h4>
-                    <a href="{% url 'meal-detail' details.Meal.pk %}">
-                        {{ meal_type }}
-                    </a>
-                </h4>
-                <table>
-                    <thead>
-                    <tr>
-                        <th class="food-name">Food Name</th>
-                        <th>Grams</th>
-                        <th>Kcal</th>
-                        <th>Carbs</th>
-                        <th>Protein</th>
-                        <th>Fats</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for food, quantities in details.Foods.items %}
-                        {% for quantity, nutrients in quantities.items %}
-                            <tr>
-                                <td class="food-name"><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a></td>
-                                <td>{{ quantity }}</td>
-                                <td>{{ nutrients.Calories|floatformat:2 }}</td>
-                                <td>{{ nutrients.Carbs|floatformat:2 }}</td>
-                                <td>{{ nutrients.Protein|floatformat:2 }}</td>
-                                <td>{{ nutrients.Fats|floatformat:2 }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endfor %}
-                    <tr class="bg-info" style="font-weight: bold;">
-                        <td class="nutrients-total" colspan="2">Total for {{ meal_type }}</td>
-                        <td class="nutrients-total">{{ details.Totals.Calories|floatformat:2 }}</td>
-                        <td class="nutrients-total">{{ details.Totals.Carbs|floatformat:2 }}</td>
-                        <td class="nutrients-total">{{ details.Totals.Protein|floatformat:2 }}</td>
-                        <td class="nutrients-total">{{ details.Totals.Fats|floatformat:2 }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            {% else %}
-                <div class="overall-total">
-                    <h3 class="text-primary">TOTAL</h3>
-                    <table>
+            {% for meal_type, details in meals.items %}
+                {% if meal_type != "Overall Total" %}
+                    <h4>
+                        <a href="{% url 'meal-detail' details.Meal.pk %}">
+                            {{ meal_type }}
+                        </a>
+                    </h4>
+                    <table class="nutrients-table">
                         <thead>
                         <tr>
-                            <th>-</th>
+                            <th class=>Food Name</th>
+                            <th>Grams</th>
                             <th>Kcal</th>
                             <th>Carbs</th>
                             <th>Protein</th>
@@ -61,43 +25,183 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="bg-success">
-                            <td><b>TOTAL</b></td>
-                            <td class="calories-total nutrients-total">{{ details.Calories|floatformat:2 }}</td>
-                            <td class="carbs-total nutrients-total">{{ details.Carbs|floatformat:2 }}</td>
-                            <td class="protein-total nutrients-total">{{ details.Protein|floatformat:2 }}</td>
-                            <td class="fats-total nutrients-total">{{ details.Fats|floatformat:2 }}</td>
-                        </tr>
-                        <tr class="bg-primary">
-                            <td><b>MY GOAL</b></td>
-                            <td class="calories-goal nutrients-total">{{ userprofile.calories|floatformat:2 }}</td>
-                            <td class="carbs-goal nutrients-total">{{ userprofile.carbs|floatformat:2 }}</td>
-                            <td class="protein-goal nutrients-total">{{ userprofile.protein|floatformat:2 }}</td>
-                            <td class="fats-goal nutrients-total">{{ userprofile.fats|floatformat:2 }}</td>
-                        </tr>
-                        <tr>
-                            <td><b>Grams diff</b></td>
-                            <td class="calories-diff-grams"></td>
-                            <td class="carbs-diff-grams"></td>
-                            <td class="protein-diff-grams"></td>
-                            <td class="fats-diff-grams"></td>
-                        </tr>
-                        <tr>
-                            <td><b>Percent diff</b></td>
-                            <td class="calories-diff-percent"></td>
-                            <td class="carbs-diff-percent"></td>
-                            <td class="protein-diff-percent"></td>
-                            <td class="fats-diff-percent"></td>
+                        {% for food, quantities in details.Foods.items %}
+                            {% for quantity, nutrients in quantities.items %}
+                                <tr>
+                                    <td class="food-name"><a href="{% url 'food-detail' food.pk %}">{{ food.name }}</a>
+                                    </td>
+                                    <td class="food-quantity">{{ quantity }}</td>
+                                    <td class="food-calories">{{ nutrients.Calories|floatformat:2 }}</td>
+                                    <td class="food-carbs">{{ nutrients.Carbs|floatformat:2 }}</td>
+                                    <td class="food-protein">{{ nutrients.Protein|floatformat:2 }}</td>
+                                    <td class="food-fats">{{ nutrients.Fats|floatformat:2 }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                        <tr class="bg-info" style="font-weight: bold;">
+                            <td class="nutrients-total" colspan="2">Total for {{ meal_type }}</td>
+                            <td class="nutrients-total">{{ details.Totals.Calories|floatformat:2 }}</td>
+                            <td class="nutrients-total">{{ details.Totals.Carbs|floatformat:2 }}</td>
+                            <td class="nutrients-total">{{ details.Totals.Protein|floatformat:2 }}</td>
+                            <td class="nutrients-total">{{ details.Totals.Fats|floatformat:2 }}</td>
                         </tr>
                         </tbody>
                     </table>
-                </div>
-
-            {% endif %}
+                {% else %}
+                    <div class="overall-total">
+                        <h3 class="text-primary">TOTAL</h3>
+                        <table class="nutrients-table-total">
+                            <thead>
+                            <tr>
+                                <th>-</th>
+                                <th>Kcal</th>
+                                <th>Carbs</th>
+                                <th>Protein</th>
+                                <th>Fats</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="bg-success">
+                                <td><b>TOTAL</b></td>
+                                <td class="calories-total nutrients-total">{{ details.Calories|floatformat:2 }}</td>
+                                <td class="carbs-total nutrients-total">{{ details.Carbs|floatformat:2 }}</td>
+                                <td class="protein-total nutrients-total">{{ details.Protein|floatformat:2 }}</td>
+                                <td class="fats-total nutrients-total">{{ details.Fats|floatformat:2 }}</td>
+                            </tr>
+                            <tr class="bg-primary">
+                                <td><b>MY GOAL</b></td>
+                                <td class="calories-goal nutrients-total">{{ userprofile.calories|floatformat:2 }}</td>
+                                <td class="carbs-goal nutrients-total">{{ userprofile.carbs|floatformat:2 }}</td>
+                                <td class="protein-goal nutrients-total">{{ userprofile.protein|floatformat:2 }}</td>
+                                <td class="fats-goal nutrients-total">{{ userprofile.fats|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Grams diff</b></td>
+                                <td class="calories-diff-grams"></td>
+                                <td class="carbs-diff-grams"></td>
+                                <td class="protein-diff-grams"></td>
+                                <td class="fats-diff-grams"></td>
+                            </tr>
+                            <tr>
+                                <td><b>Percent diff</b></td>
+                                <td class="calories-diff-percent"></td>
+                                <td class="carbs-diff-percent"></td>
+                                <td class="protein-diff-percent"></td>
+                                <td class="fats-diff-percent"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
+    <button id="save-nutrients">Save Nutrients</button>
 
-    <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
+        <span class="username" style="display: none;">{{ user }}</span>
+
+        <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
+
+        <script>
+            let foodData = {};
+
+            function fillData(data, key1, key2, nutrients, element) {
+                data[key1][key2][nutrients] += parseFloat(element.textContent) || 0;
+                return data
+            }
+
+            const tableEls = document.querySelectorAll(".nutrients-table");
+
+            tableEls.forEach(table => {
+                const h3El = table.previousElementSibling;
+                if (!h3El) return;
+
+                const mealType = h3El.textContent.trim();
+                foodData[mealType] = {};
+
+                const allRowsEl = table.querySelectorAll("tbody tr");
+                allRowsEl.forEach(row => {
+                    const foodNameEl = row.querySelector(".food-name");
+                    const foodGramsEl = row.querySelector(".food-quantity");
+                    const foodCaloriesEl = row.querySelector(".food-calories");
+                    const foodCarbsEl = row.querySelector(".food-carbs");
+                    const foodProteinEl = row.querySelector(".food-protein");
+                    const foodFatsEl = row.querySelector(".food-fats");
+
+                    if (foodNameEl && foodGramsEl && foodCaloriesEl && foodCarbsEl && foodProteinEl && foodFatsEl) {
+                        const foodName = foodNameEl.textContent.trim();
+
+                        if (!foodData[mealType][foodName]) {
+                            foodData[mealType][foodName] = {grams: 0, calories: 0, carbs: 0, protein: 0, fats: 0};
+                        }
+
+                        foodData = fillData(foodData, mealType, foodName, 'grams', foodGramsEl);
+                        foodData = fillData(foodData, mealType, foodName, 'calories', foodCaloriesEl);
+                        foodData = fillData(foodData, mealType, foodName, 'carbs', foodCarbsEl);
+                        foodData = fillData(foodData, mealType, foodName, 'protein', foodProteinEl);
+                        foodData = fillData(foodData, mealType, foodName, 'fats', foodFatsEl);
+                    }
+                });
+            });
+
+            foodData['TotalNutrients'] = {
+                'total': {calories: 0, carbs: 0, protein: 0, fats: 0},
+                'goal': {calories: 0, carbs: 0, protein: 0, fats: 0},
+            }
+
+            const tableTotalEls = document.querySelector(".nutrients-table-total");
+
+            const caloriesTotal = tableTotalEls.querySelector(".calories-total");
+            const carbsTotal = tableTotalEls.querySelector(".carbs-total");
+            const proteinTotal = tableTotalEls.querySelector(".protein-total");
+            const fatsTotal = tableTotalEls.querySelector(".fats-total");
+            foodData = fillData(foodData, 'TotalNutrients', 'total', 'calories', caloriesTotal);
+            foodData = fillData(foodData, 'TotalNutrients', 'total', 'carbs', carbsTotal);
+            foodData = fillData(foodData, 'TotalNutrients', 'total', 'protein', proteinTotal);
+            foodData = fillData(foodData, 'TotalNutrients', 'total', 'fats', fatsTotal);
+
+            const caloriesGoal = tableTotalEls.querySelector(".calories-goal");
+            const carbsGoal = tableTotalEls.querySelector(".carbs-goal");
+            const proteinGoal = tableTotalEls.querySelector(".protein-goal");
+            const fatsGoal = tableTotalEls.querySelector(".fats-goal");
+            foodData = fillData(foodData, 'TotalNutrients', 'goal', 'calories', caloriesGoal);
+            foodData = fillData(foodData, 'TotalNutrients', 'goal', 'carbs', carbsGoal);
+            foodData = fillData(foodData, 'TotalNutrients', 'goal', 'protein', proteinGoal);
+            foodData = fillData(foodData, 'TotalNutrients', 'goal', 'fats', fatsGoal);
+
+            const userSpanEL = document.querySelector(".username");
+            const user = userSpanEL.textContent;
+
+            const userNutrients = {};
+            userNutrients[user] = {};
+            userNutrients[user] = foodData
+            
+            document.getElementById("save-nutrients").addEventListener("click", function () {
+                const jsonData = JSON.stringify(userNutrients); 
+
+                fetch("{% url 'save_user_nutrients' %}", {  
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": getCSRFToken() 
+                    },
+                    body: jsonData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert("Nutrient data saved successfully!");
+                        console.log(data);
+                    })
+                    .catch(error => console.error("Error saving JSON:", error));
+            });
+            
+            function getCSRFToken() {
+                return document.cookie.split("; ")
+                    .find(row => row.startsWith("csrftoken="))
+                    ?.split("=")[1];
+            }
+
+        </script>
+
     </div>
 {% endblock %}
 

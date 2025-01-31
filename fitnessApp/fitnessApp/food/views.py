@@ -12,6 +12,12 @@ from fitnessApp.food.forms import MealFoodForm
 from fitnessApp.food.models import Food, Meal, MealFood, FoodListTable
 from fitnessApp.users.models import UserProfile
 
+import json
+import os
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+
 
 def home(request):
     return render(request, 'home/home.html')
@@ -321,3 +327,24 @@ def user_meals_view(request, username):
     }
 
     return render(request, 'food/user_meals.html', context)
+
+
+@csrf_exempt  # Only for testing! Better to use CSRF token
+def save_user_nutrients(request):
+    if request.method == "POST":
+        try:
+            user = request.user.username
+            data = json.loads(request.body)
+            save_directory = os.path.join(settings.BASE_DIR, "foods", "user_nutrients")
+            os.makedirs(save_directory, exist_ok=True)  # Ensure the directory exists
+
+            file_path = os.path.join(save_directory, f"{user}_nutrients.json")
+            with open(file_path, "w", encoding="utf-8") as json_file:
+                json.dump(data, json_file, indent=4)  # Save the JSON data nicely formatted
+
+            return JsonResponse({"message": "JSON file saved successfully!", "file": file_path})
+
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
