@@ -1,0 +1,73 @@
+{
+    "Ivan": {
+        "Breakfast": {
+            "Яйце - кокоше": {
+                "grams": 120,
+                "calories": 188.4,
+                "carbs": 0.84,
+                "protein": 15.48,
+                "fats": 13.44
+            },
+            "Хляб бял": {
+                "grams": 60,
+                "calories": 149.4,
+                "carbs": 30.84,
+                "protein": 4.26,
+                "fats": 0.66
+            }
+        },
+        "Lunch": {
+            "Пилешко месо от бут": {
+                "grams": 150,
+                "calories": 175.5,
+                "carbs": 0,
+                "protein": 31.5,
+                "fats": 5.1
+            },
+            "Ориз - Бял": {
+                "grams": 200,
+                "calories": 710,
+                "carbs": 158,
+                "protein": 13,
+                "fats": 1
+            },
+            "Хляб бял": {
+                "grams": 30,
+                "calories": 74.7,
+                "carbs": 15.42,
+                "protein": 2.13,
+                "fats": 0.33
+            }
+        },
+        "Dinner": {
+            "Пилешко месо от бут": {
+                "grams": 200,
+                "calories": 234,
+                "carbs": 0,
+                "protein": 42,
+                "fats": 6.8
+            },
+            "Ориз - Бял": {
+                "grams": 100,
+                "calories": 355,
+                "carbs": 79,
+                "protein": 6.5,
+                "fats": 0.5
+            }
+        },
+        "TotalNutrients": {
+            "total": {
+                "calories": 1887,
+                "carbs": 284.1,
+                "protein": 114.87,
+                "fats": 27.83
+            },
+            "goal": {
+                "calories": 1600,
+                "carbs": 210,
+                "protein": 150,
+                "fats": 30
+            }
+        }
+    }
+}

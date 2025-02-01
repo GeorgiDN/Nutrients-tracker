@@ -95,9 +95,16 @@
                 {% endif %}
             {% endfor %}
         {% endfor %}
-        <button id="save-nutrients">Save Nutrients</button>
-        <a href="{% url 'user-nutrients-list' %}">History</a>
-
+    
+        <button class="btn btn-primary save-btn ml-2" id="save-nutrients">
+            Save
+            <i class="fa-regular fa-floppy-disk ml-1"></i>
+        </button>
+        <a class="btn btn-info nutrients-history-btn" href="{% url 'user-nutrients-list' %}">
+            History
+            <i class="fa-solid fa-file"></i>
+        </a>
+        
         <span class="username" style="display: none;">{{ user }}</span>
         <script src="{% static 'js/food/nutritionCompare.js' %}"></script>
 

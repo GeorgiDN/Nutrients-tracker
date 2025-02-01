@@ -106,6 +106,22 @@ td {
     font-weight: bold;
 }
 
+.nutrients-history-btn {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 1rem;
+    float: right;
+}
+
+.save-btn {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 1rem;
+    float: right;
+}
+
+
+
 @media (max-width: 520px) {
     .user-meals-total th:first-child, td:first-child {
         width: 22%;
@@ -125,7 +141,6 @@ td {
         width: auto;
     }
 }
-
 
 @media (max-width: 370px) {
     th, td {
