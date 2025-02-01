@@ -144,6 +144,16 @@ main {
     padding-bottom: 6rem;
 }
 
+.aside-bar {
+    background-color: #fafafa;
+    border-radius: 0.2rem;
+}
+
+.aside-list {
+    padding: 0.3rem;
+    background-color: #fafafa;
+}
+
 footer {
     position: fixed;
     left: 0;

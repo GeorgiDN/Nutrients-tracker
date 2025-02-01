@@ -2,10 +2,10 @@
 
 {% block content %}
     {% include 'food/food-navigation.html' %}
-    <h2>Your Saved Meals</h2>
+    <h2>Your Saved Daily Nutrients</h2>
     <ul>
         {% for date in meal_records %}
-            <li class="list-group"><a href="{% url 'user-nutrients-detail' date=date %}">{{ date }}</a></li>
+            <li class=""><a href="{% url 'user-nutrients-detail' date=date %}">{{ date }}</a></li>
         {% empty %}
             <li>No saved records found.</li>
         {% endfor %}

@@ -1,7 +1,8 @@
 {% extends 'home/base.html' %}
 {% block content %}
     {% include 'food/food-navigation.html' %}
-    <h2>Nutrient Data for {{ date }}</h2>
+    <h2>Nutrient Data</h2>
+    <h4>{{ date }}</h4>
 
     {% for username, meals in nutrient_data.items %}
         <table border="1">
